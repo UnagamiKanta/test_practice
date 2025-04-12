@@ -1,0 +1,23 @@
+services:
+ db:
+  image: mysql:8
+  ports:
+   - "3306:3306"
+  environment:
+   MYSQL_ROOT_PASSWORD: rootpass
+   MYSQL_DATABASE: go-college
+   MYSQL_USER: user
+   MYSQL_PASSWORD: password
+  volumes:
+   - ./data:/var/lib/mysql
+ tool:
+  image: phpmyadmin:latest
+  depends_on:
+   - db
+  environment:
+   - PMA_ARBITRARY=1
+   - PMA_HOSTS=db
+   - PMA_USER=user
+   - PMA_PASSWORD=password
+  ports:
+   - "8001:80"
